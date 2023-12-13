@@ -1,8 +1,8 @@
-import { View, Text, Image } from 'react-native'
+import { Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import Header from '../components/Header/Header'
 
-export default function Wallet() {
+export default function Newsfeed() {
   return (
     <View style={{ flex: 1, padding: 16, backgroundColor: '#fff' }}>
       <View>
@@ -18,3 +18,5 @@ export default function Wallet() {
     </View>
   )
 }
+
+const styles = StyleSheet.create({})
