@@ -1,8 +1,8 @@
 import { Image, ImageBackground, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { Path, Svg } from 'react-native-svg'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
-export default function CardInfo() {
+interface CardInfoProps {}
+const CardInfo: React.FC<CardInfoProps> = () => {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
@@ -13,7 +13,7 @@ export default function CardInfo() {
           <View style={styles.userInfo}>
             <View style={[styles.infoGroup, styles.flexInfo]}>
               <Text style={styles.textInfo}>Name</Text>
-              <View style={[styles.infoGroup, { gap: 10 }]}>
+              <View style={[styles.infoGroup, styles.iconGroup]}>
                 <Text numberOfLines={1} style={styles.textInfo}>
                   tienbap12
                 </Text>
@@ -21,8 +21,17 @@ export default function CardInfo() {
               </View>
             </View>
             <View style={[styles.infoGroup, styles.flexInfo]}>
+              <Text style={styles.textInfo}>Name</Text>
+              <View style={[styles.infoGroup, styles.iconGroup]}>
+                <Text numberOfLines={1} style={styles.textInfo}>
+                  Tiến Ngô
+                </Text>
+                <FontAwesome name='edit' size={20} color='#fff' />
+              </View>
+            </View>
+            <View style={[styles.infoGroup, styles.flexInfo]}>
               <Text style={styles.textInfo}>Birthday</Text>
-              <View style={[styles.infoGroup, { gap: 10 }]}>
+              <View style={[styles.infoGroup, styles.iconGroup]}>
                 <Text numberOfLines={1} style={styles.textInfo}>
                   24/09/2001
                 </Text>
@@ -31,25 +40,25 @@ export default function CardInfo() {
             </View>
             <View style={[styles.infoGroup, styles.flexInfo]}>
               <Text style={styles.textInfo}>Country</Text>
-              <View style={[styles.infoGroup, { gap: 10 }]}>
+              <View style={[styles.infoGroup, styles.iconGroup]}>
                 <Text numberOfLines={1} style={styles.textInfo}>
-                  Binh Thuan
+                  Việt Nam
                 </Text>
                 <FontAwesome name='edit' size={20} color='#fff' />
               </View>
             </View>
             <View style={[styles.infoGroup, styles.flexInfo]}>
               <Text style={styles.textInfo}>City</Text>
-              <View style={[styles.infoGroup, { gap: 10 }]}>
+              <View style={[styles.infoGroup, styles.iconGroup]}>
                 <Text numberOfLines={1} style={styles.textInfo}>
-                  Sai Gon
+                  Ho Chi Minh
                 </Text>
                 <FontAwesome name='edit' size={20} color='#fff' />
               </View>
             </View>
             <View style={[styles.infoGroup, styles.flexInfo]}>
               <Text style={styles.textInfo}>Phone</Text>
-              <View style={[styles.infoGroup, { gap: 10 }]}>
+              <View style={[styles.infoGroup, styles.iconGroup]}>
                 <Text numberOfLines={1} style={styles.textInfo}>
                   0903192469
                 </Text>
@@ -58,7 +67,7 @@ export default function CardInfo() {
             </View>
             <View style={[styles.infoGroup, styles.flexInfo]}>
               <Text style={styles.textInfo}>Email</Text>
-              <View style={[styles.infoGroup, { gap: 10 }]}>
+              <View style={[styles.infoGroup, styles.iconGroup]}>
                 <Text numberOfLines={1} style={styles.textInfo}>
                   tienbap12@gmail.com
                 </Text>
@@ -66,33 +75,17 @@ export default function CardInfo() {
               </View>
             </View>
           </View>
-          <View
-            style={{
-              flex: 1,
-              width: '50%',
-              display: 'flex',
-              alignItems: 'flex-end',
-              margin: 10,
-              justifyContent: 'space-between',
-            }}
-          >
-            <View style={styles.userInfoRight}>
+          <View style={styles.rightContainer}>
+            <View style={styles.qrCodeContainer}>
               <Image
                 source={require('../../../Assets/img/qrcode.png')}
-                style={{
-                  width: 74,
-                  height: 74,
-                  borderWidth: 1,
-                  borderColor: '#fff',
-                  borderRadius: 8,
-                  padding: 5,
-                }}
+                style={styles.qrCodeImage}
               />
-              <Text style={[styles.textUserName]}>@tienbap12</Text>
+              <Text style={styles.textUserName}>@tienbap12</Text>
             </View>
             <Image
               source={require('../../../Assets/img/logo-lite-white.png')}
-              style={{ width: 38, height: 20 }}
+              style={styles.logoImage}
             />
           </View>
         </ImageBackground>
@@ -102,11 +95,12 @@ export default function CardInfo() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: {
+    flex: 1,
+  },
   infoContainer: {
     borderRadius: 30,
     padding: 10,
-    display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     resizeMode: 'cover',
@@ -116,12 +110,13 @@ const styles = StyleSheet.create({
     overflow: 'hidden', // This is important to make sure the borderRadius works
   },
   infoGroup: {
-    display: 'flex',
     flexDirection: 'row',
   },
   flexInfo: {
-    display: 'flex',
     justifyContent: 'space-between',
+  },
+  iconGroup: {
+    gap: 10,
   },
   textInfo: {
     color: '#FFFFFF',
@@ -131,19 +126,40 @@ const styles = StyleSheet.create({
     width: 70,
   },
   userInfo: {
-    display: 'flex',
-    gap: 15,
+    flexDirection: 'column',
+    gap: 10,
     flex: 1,
     width: '50%',
+  },
+  rightContainer: {
+    flex: 1,
+    width: '50%',
+    alignItems: 'flex-end',
+    margin: 10,
+    justifyContent: 'space-between',
+  },
+  qrCodeContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  qrCodeImage: {
+    width: 74,
+    height: 74,
+    borderWidth: 1,
+    borderColor: '#fff',
+    borderRadius: 8,
+    padding: 5,
   },
   textUserName: {
     color: '#FFFFFF',
     fontStyle: 'italic',
     fontWeight: 'bold',
-    // width: 100,
     fontSize: 12,
   },
-  userInfoRight: {
-    flex: 1,
+  logoImage: {
+    width: 38,
+    height: 20,
   },
 })
+export default CardInfo

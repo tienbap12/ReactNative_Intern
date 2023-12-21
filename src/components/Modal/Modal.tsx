@@ -1,57 +1,33 @@
-import { Button, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React from 'react'
 import { ReactNativeModal } from 'react-native-modal'
 import Icon from '../Icons/Icons'
 import SettingItem from './SettingItem'
+interface ModalProps {
+  onClose: () => void
+  isVisible?: boolean | (() => boolean | undefined) | undefined
+}
+const Modal: React.FC<ModalProps> = ({ isVisible, onClose }) => {
+  const isModalVisible = isVisible && typeof isVisible === 'function' ? isVisible() : isVisible
 
-export default function Modal(props) {
-  const PressShowLog = () => {
-    console.log('hehe')
-  }
   return (
     <View style={{ flex: 1 }}>
       <ReactNativeModal
-        isVisible={props.isVisible}
+        isVisible={isModalVisible}
         animationIn={'slideInUp'}
-        animationInTiming={500}
-        style={{ paddingBottom: 0 }}
+        animationInTiming={200}
+        style={styles.modalStyle}
       >
-        <ScrollView
-          style={{
-            height: '80%',
-            position: 'absolute',
-            width: '100%',
-            bottom: -20,
-            flex: 1,
-            backgroundColor: '#fff',
-            borderTopRightRadius: 15,
-            borderTopLeftRadius: 15,
-            padding: 10,
-          }}
-        >
-          <View
-            style={{
-              margin: 0,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              height: 50,
-              borderBottomWidth: 1,
-              borderBottomColor: '#ccc',
-            }}
-          >
-            <View></View>
-            <Text style={{ color: '#000', fontSize: 22, fontWeight: '900' }}>Cài đặt chung</Text>
-            <TouchableOpacity onPress={props.onClose}>
-              <Icon name='close' />
+        <ScrollView style={styles.scrollViewStyle}>
+          <View style={styles.header}>
+            <View />
+            <Text style={styles.headerText}>Cài đặt chung</Text>
+            <TouchableOpacity onPress={onClose}>
+              <Icon focused={''} name='close' />
             </TouchableOpacity>
           </View>
           <View style={styles.listSettings}>
-            <SettingItem
-              icon='language'
-              label='Ngôn ngữ'
-              value='Tiếng Việt'
-              onPress={PressShowLog}
-            />
+            <SettingItem icon='language' label='Ngôn ngữ' value='Tiếng Việt' onPress={() => {}} />
             <SettingItem icon='user' label='Kết nối' value='' onPress={() => {}} />
             <SettingItem icon='affiliate' label='Affliate' value='' onPress={() => {}} />
             <SettingItem icon='www' label='Tùy chỉnh tên miền' value='' onPress={() => {}} />
@@ -62,11 +38,11 @@ export default function Modal(props) {
             <SettingItem icon='form' label='Biểu mẫu yêu cầu' value='' onPress={() => {}} />
             <SettingItem icon='logout' label='Đăng xuất' value='' onPress={() => {}} />
           </View>
-          <View style={{ paddingVertical: 10, gap: 10 }}>
+          <View style={styles.versionInfo}>
             <Text style={[styles.text, styles.title]}>Version</Text>
             <Text style={styles.text}>2.0.0</Text>
             <Text style={styles.text}>
-              Developed by <Text style={{ color: '#3427c8' }}>MESEA</Text>
+              Developed by <Text style={styles.developerText}>MESEA</Text>
             </Text>
           </View>
         </ScrollView>
@@ -76,6 +52,35 @@ export default function Modal(props) {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  modalStyle: {
+    paddingBottom: 0,
+  },
+  scrollViewStyle: {
+    height: '80%',
+    position: 'absolute',
+    width: '100%',
+    bottom: -20,
+    flex: 1,
+    backgroundColor: '#fff',
+    borderTopRightRadius: 15,
+    borderTopLeftRadius: 15,
+    padding: 10,
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    height: 50,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+  },
+  headerText: {
+    color: '#000',
+    fontSize: 22,
+    fontWeight: '900',
+  },
   listSettings: {
     // flex: 5,
   },
@@ -92,4 +97,12 @@ const styles = StyleSheet.create({
     borderBottomColor: '#ccc',
     marginVertical: 10,
   },
+  versionInfo: {
+    paddingVertical: 10,
+    gap: 10,
+  },
+  developerText: {
+    color: '#3427c8',
+  },
 })
+export default Modal

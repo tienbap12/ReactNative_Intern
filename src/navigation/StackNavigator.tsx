@@ -5,6 +5,8 @@ import Camera from '../screen/Camera'
 import Noti from '../screen/Noti'
 import BottomTabNavigator from './BottomTabNavigator'
 import Store from '../screen/Store'
+import Login from '../screen/Login'
+import SignUp from '../screen/SignUp'
 
 const Stack = createNativeStackNavigator()
 const StackNavigator = () => {
@@ -14,6 +16,8 @@ const StackNavigator = () => {
       <Stack.Screen name='Camera' component={Camera} />
       <Stack.Screen name='Noti' component={Noti} />
       <Stack.Screen name='Store' component={Store} />
+      <Stack.Screen name='login' component={Login} />
+      <Stack.Screen name='signup' component={SignUp} />
     </Stack.Navigator>
   )
 }

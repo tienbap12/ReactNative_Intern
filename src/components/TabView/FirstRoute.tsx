@@ -9,7 +9,7 @@ const FirstRoute = () => (
       data={[1, 2, 3, 4, 5]}
       keyExtractor={(item) => item.toString()}
       contentContainerStyle={{ flexGrow: 1 }}
-      renderItem={({ item }) => (
+      renderItem={() => (
         <View style={styles.cardItem}>
           <View style={styles.cardItemLeft}>
             <FastImage

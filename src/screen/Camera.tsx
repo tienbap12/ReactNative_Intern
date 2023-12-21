@@ -1,4 +1,4 @@
-import { Button, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useRef } from 'react'
 import {
   Camera,
@@ -6,45 +6,70 @@ import {
   useCameraPermission,
   useCodeScanner,
 } from 'react-native-vision-camera'
-// import {
-//   Camera,
-//   useCameraDevice,
-//   useCameraPermission,
-//   useCodeScanner,
-// } from 'react-native-vision-camera';
-
-export default function Cameraa({ navigation }) {
+import Header from '../components/Header/Header'
+interface CameraaProps {}
+const Cameraa: React.FC<CameraaProps> = () => {
   const camera = useRef<Camera>(null)
   const device = useCameraDevice('back')
-  const { hasPermission, requestPermission } = useCameraPermission()
+  const { requestPermission } = useCameraPermission()
   const codeScanner = useCodeScanner({
     codeTypes: ['qr', 'ean-13'],
     onCodeScanned: (codes) => {
       console.log(`Scanned ${codes.length} codes!`)
     },
   })
+
   useEffect(() => {
     requestPermission()
-  }, [])
-  if (device == null)
+  }, [requestPermission])
+
+  if (device == null) {
     return (
-      <View>
-        <Text>Device not found</Text>
+      <View style={styles.container}>
+        <Text style={styles.text}>Device not found</Text>
       </View>
     )
-  return (
-    // <View>
-    //   <Text>Device not found</Text>
+  }
 
-    // </View>
-    <Camera
-      ref={camera}
-      style={StyleSheet.absoluteFill}
-      device={device}
-      isActive={true}
-      // codeScanner={codeScanner}
-    />
+  return (
+    <View style={styles.container}>
+      <View style={styles.headerContainer}>
+        <Header />
+      </View>
+
+      <View style={styles.cameraContainer}>
+        <Camera
+          ref={camera}
+          style={styles.cameraPreview}
+          device={device}
+          isActive={true}
+          codeScanner={codeScanner}
+        />
+      </View>
+    </View>
   )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 16,
+  },
+  text: {
+    fontSize: 18,
+    textAlign: 'center',
+  },
+  headerContainer: {
+    marginBottom: 16,
+  },
+  cameraContainer: {
+    width: '100%',
+    aspectRatio: 1,
+    borderRadius: 30,
+    overflow: 'hidden',
+  },
+  cameraPreview: {
+    ...StyleSheet.absoluteFillObject,
+  },
+})
+export default Cameraa

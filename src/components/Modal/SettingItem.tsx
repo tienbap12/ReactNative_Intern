@@ -1,8 +1,13 @@
 import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import Icon from '../Icons/Icons'
-
-export default function SettingItem({ icon, label, value, onPress }) {
+interface SettingItemProps {
+  icon: string
+  label: string
+  value: string
+  onPress: () => void
+}
+const SettingItem: React.FC<SettingItemProps> = ({ icon, label, value, onPress }) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <View
@@ -24,7 +29,7 @@ export default function SettingItem({ icon, label, value, onPress }) {
               height: 40,
             }}
           >
-            <Icon name={icon} />
+            <Icon focused={''} name={icon} />
           </View>
           <Text style={{ color: '#000' }}>{label}</Text>
         </View>
@@ -32,9 +37,10 @@ export default function SettingItem({ icon, label, value, onPress }) {
           style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}
         >
           <Text style={{ color: '#868D9A' }}>{value || ''}</Text>
-          <Icon name='arrowRight' />
+          <Icon focused={''} name='arrowRight' />
         </View>
       </View>
     </TouchableOpacity>
   )
 }
+export default SettingItem

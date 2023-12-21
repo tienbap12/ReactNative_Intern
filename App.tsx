@@ -1,22 +1,18 @@
-import React, {useEffect, useState} from 'react';
-import {
-  Button,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
-import StackNavigator from './src/navigation/StackNavigator';
+import React from 'react'
+
+import StackNavigator from './src/navigation/StackNavigator'
+import { NavigationContainer } from '@react-navigation/native'
+import { QueryClient, QueryClientProvider } from 'react-query'
 
 function App() {
+  const queryClient = new QueryClient()
   return (
-    <NavigationContainer>
-      <StackNavigator />
-    </NavigationContainer>
-  );
+    <QueryClientProvider client={queryClient}>
+      <NavigationContainer>
+        <StackNavigator />
+      </NavigationContainer>
+    </QueryClientProvider>
+  )
 }
 
-export default App;
+export default App

@@ -1,8 +1,8 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import React from 'react'
 import HeaderBio from '../components/Header/HeaderBio'
-
-export default function Bio() {
+interface BioProps {}
+const Bio: React.FC<BioProps> = () => {
   return (
     <View style={styles.container}>
       <HeaderBio />
@@ -13,3 +13,4 @@ export default function Bio() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#ffffff', padding: 16 },
 })
+export default Bio

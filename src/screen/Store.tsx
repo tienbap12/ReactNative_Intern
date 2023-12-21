@@ -1,25 +1,28 @@
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import Header from '../components/Header/Header'
 import Icon from '../components/Icons/Icons'
 import SearchBar from '../components/Header/SearchBar'
 import TabViewStore from '../components/TabView/TabView'
+import Modal from '../components/Modal/Modal'
+interface StoreProps {}
+const Store: React.FC<StoreProps> = () => {
+  const [isModalVisible, setModalVisible] = useState<boolean>(false)
+  const [searchText, setSearchText] = useState<string>('')
 
-export default function Store() {
-  const [searchText, setSearchText] = useState('')
-
-  const handleSearch = (text) => {
+  const handleSearch = (text: string) => {
     setSearchText(text)
   }
   return (
     <View style={styles.container}>
       <View>
-        <Header />
+        <Header onMenuPress={() => setModalVisible(true)} />
+        <Modal isVisible={isModalVisible} onClose={() => setModalVisible(false)} />
       </View>
       <View style={styles.searchBarContainer}>
         <SearchBar placeholder='Search...' onChangeText={handleSearch} value={searchText} />
         <TouchableOpacity>
-          <Icon name='cart' />
+          <Icon focused={''} name='cart' />
         </TouchableOpacity>
       </View>
       <View style={styles.tabContainer}>
@@ -40,3 +43,4 @@ const styles = StyleSheet.create({
   },
   tabContainer: { flex: 1 },
 })
+export default Store
